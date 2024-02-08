@@ -22,7 +22,9 @@ void q_qml_application_engine_destroy(q_qml_application_engine application_engin
 void q_qml_application_engine_load(q_qml_application_engine application_engine,
                                    q_url path)
 {
-  ((QQmlApplicationEngine *)application_engine)->load(*((QUrl *)path));
+  QQmlApplicationEngine* appEngine = (QQmlApplicationEngine *) application_engine;
+  QUrl* urlPath =(QUrl *) path;
+  appEngine->load(*urlPath);
   return;
 }
 

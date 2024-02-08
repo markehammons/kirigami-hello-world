@@ -12,7 +12,7 @@ Kirigami.ApplicationWindow {
     // Window title
     // i18nc() makes a string translatable
     // and provides additional context for the translators
-    title: i18nc("@title:window", "Hello World")
+    title: i18n("Hello World")
 
     // Set the first page that will be loaded when the app opens
     // This can also be set to an id of a Kirigami.Page

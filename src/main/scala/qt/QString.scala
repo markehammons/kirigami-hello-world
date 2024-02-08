@@ -24,10 +24,14 @@ object _QString:
   def q_string_destroy(string: QString): Unit = extern
 
 object QString:
+  given Releasable[Zone] with 
+    def release(resource: Zone): Unit = resource.close()
   given Releasable[QString] with
-    def release(resource: QString): Unit = _QString.q_string_destroy(resource)
+    def release(resource: QString): Unit = 
+      println("destroying string")
+      _QString.q_string_destroy(resource)
 
   def apply(string: String)(using m: Manager) =
-    Zone { implicit z =>
-      m.apply(q_string_init(toCString(string)))
-    }
+    given Zone = m(Zone.open())
+    println("allocating string")
+    m(q_string_init(toCString(string)))

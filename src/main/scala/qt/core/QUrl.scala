@@ -15,7 +15,13 @@ private object _QUrl:
 
 object QUrl:
   given Releasable[QUrl] with
-    def release(resource: QUrl): Unit = _QUrl.q_url_destroy(resource)
+    def release(resource: QUrl): Unit =
+      println("destroying qurl")
+      _QUrl.q_url_destroy(resource)
 
   def apply(uri: URI)(using m: Manager): QUrl =
-    m(_QUrl.q_url_init(QString(uri.toASCIIString())))
+    println("allocating qurl")
+    println(uri.toASCIIString())
+    val url = m(_QUrl.q_url_init(QString(uri.toASCIIString())))
+    println("done")
+    url

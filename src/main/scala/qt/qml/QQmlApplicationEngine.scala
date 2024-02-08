@@ -34,18 +34,18 @@ private object _QQmlApplicationEngine:
 object QQmlApplicationEngine:
   given Releasable[QQmlApplicationEngine] with
     def release(resource: QQmlApplicationEngine): Unit =
+      println("destroying qmlappengine")
       _QQmlApplicationEngine.q_qml_application_engine_destroy(resource)
   def apply(using m: Manager) =
+    println("creating qmlappengine")
     m(_QQmlApplicationEngine.q_qml_application_engine_init())
 
   extension (appEngine: QQmlApplicationEngine)
     def rootContext: QQmlContext =
       _QQmlApplicationEngine.q_qml_application_engine_root_context(appEngine)
 
-    def load(url: URI): Unit = 
-      Using.Manager{implicit m =>
-        _QQmlApplicationEngine.q_qml_application_engine_load(appEngine, QUrl(url))
-      }
+    def load(url: URI)(using m: Manager): Unit = 
+      _QQmlApplicationEngine.q_qml_application_engine_load(appEngine, QUrl(url))
 
     def rootObjects: QList[QObject] =
       _QQmlApplicationEngine.q_qml_application_engine_root_objects(appEngine)
