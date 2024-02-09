@@ -2,9 +2,8 @@
 #include "QApplicationBinding.hpp"
 
 qapplication_type_t qapplication_init(int argc, char **argv) {
-  
-  QApplication* app = new QApplication(argc, argv);
-  return app;
+  int count = 0;
+  return new QApplication(count, NULL);
 }
 
 int qapplication_exec(qapplication_type_t qapplication) {

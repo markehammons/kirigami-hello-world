@@ -37,7 +37,7 @@ object Main {
       println("here")
       appEngine.rootContext.setContextObject(KLocalizedContext(appEngine))
       println("here2")
-      appEngine.load(URI("qrc:/main.qml"))
+      appEngine.load(URI("./src/main/resources/qt/contents/ui/main.qml"))
       println("there")
 
       if appEngine.rootObjects.isEmpty then -1

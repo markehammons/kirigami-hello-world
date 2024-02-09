@@ -12,11 +12,14 @@ object QApplication:
       free(resource)
 
   given Releasable[Zone] with 
-    def release(resource: Zone): Unit = resource.close()
+    def release(resource: Zone): Unit = 
+      println("cleaning up app")
+      ()
   extension (q: QApplication) 
     def close() = free(q)
     def exec() = QApplicationBinding.qapplication_exec(q)
   def apply(args: Array[String])(using m: Manager): QApplication = 
+    println("creating application")
     given Zone = m(Zone.open())
       
     val argv = alloc[CString](1)
